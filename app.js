@@ -8,6 +8,14 @@ const app = express();
 
 app.use(bodyParser.json());
 
+// 3
+app.get('/countries', async (req,res) => {
+    let countries;
+	await fetch('https://restcountries.eu/rest/v2/all')
+		.then(res => res.json())
+		.then(data => countries = data);
 
+	res.status(200).send({data : countries, status : 'success'});
+});
 
 app.listen(process.env.PORT);
